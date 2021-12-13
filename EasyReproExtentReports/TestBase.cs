@@ -48,9 +48,18 @@ namespace EasyReproExtentReports
             Extent.AddSystemInfo("D365 CE Instance", System.Configuration.ConfigurationManager.AppSettings["OnlineCrmUrl"]);
             Extent.AttachReporter(htmlReporter);
             context.AddResultFile(fileName);
-
+            string path = System.IO.Directory.GetCurrentDirectory();
+            int index = path.IndexOf("\\bin");
+            string result = path.Substring(0, index);
+            string sourceFile = path+@"\chromedriver.exe";
+            string destinationFile = result+@"\chromedriver.exe";
+            // To move a file or folder to a new location:
+            System.IO.File.Copy( destinationFile, sourceFile,true);
             // Create a container for the tests in the class
             TestParent = Extent.CreateTest(context.FullyQualifiedTestClassName);
+          
+
+         
         }
 
         [AssemblyCleanup]
